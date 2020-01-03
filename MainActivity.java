@@ -17,44 +17,50 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
 {
-    EditText editText,editText4,editText5;
-    Button button;
+    EditText editText,editText2;
     DatabaseReference ref;
-    Shoplogdata data;
+    Button button;
+    Products pro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText=(EditText) findViewById(R.id.editText);
-        editText4=(EditText)findViewById(R.id.editText4);
-        editText5=(EditText)findViewById(R.id.editText5);
+        editText=(EditText)findViewById(R.id.editText);
+        editText2=(EditText)findViewById(R.id.editText2);
         button=(Button)findViewById(R.id.button);
-        data=new Shoplogdata();
-        ref=FirebaseDatabase.getInstance().getReference().child("Shopowner");
+        pro=new Products();
+        ref=FirebaseDatabase.getInstance().getReference().child("PRODUCTS");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                Long pno=Long.parseLong(editText5.getText().toString().trim());
-                Long pwd=Long.parseLong(editText4.getText().toString().trim());
-                data.setName(editText.getText().toString().trim());
-                data.setPass(pwd);
-                data.setMobile(pno);
-                ref.child("user1").child("stores").setValue(data);
-                Toast.makeText(MainActivity.this,"login successfull",Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+
+
+
+                        pro.setName(editText2.getText().toString().trim());
+                        pro.setProduct(editText.getText().toString().trim());
+
+                            ref.push().setValue(pro);
+                            Toast.makeText(MainActivity.this, "data added successfully", Toast.LENGTH_LONG).show();
+
+
+
+
             }
         });
-
-
-
-
-
-
 
 
     }
 
 }
+
+
+
+
+
+
+
+
 
 
 
