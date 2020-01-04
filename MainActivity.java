@@ -1,68 +1,47 @@
-package com.example.naga;
+package com.example.naga1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity
-{
-    EditText editText,editText2;
-    DatabaseReference ref;
-    Button button;
-    Products pro;
-
+public class MainActivity extends AppCompatActivity {
+EditText editText,editTest2;
+Button button;
+DatabaseReference ref;
+Product product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         editText=(EditText)findViewById(R.id.editText);
-        editText2=(EditText)findViewById(R.id.editText2);
-        button=(Button)findViewById(R.id.button);
-        pro=new Products();
-        ref=FirebaseDatabase.getInstance().getReference().child("PRODUCTS");
+        editTest2=(EditText)findViewById(R.id.editText2);
+        product=new Product();
+        ref= FirebaseDatabase.getInstance().getReference().child("shop");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-
-
-                        pro.setName(editText2.getText().toString().trim());
-                        pro.setProduct(editText.getText().toString().trim());
-
-                            ref.push().setValue(pro);
-                            Toast.makeText(MainActivity.this, "data added successfully", Toast.LENGTH_LONG).show();
-
-
-
-
+            public void onClick(View v)
+            {
+                product.setName(editText.getText().toString().trim());
+                product.setPro(editTest2.getText().toString().trim());
+                ref.child("products").setValue(product);
+                Toast.makeText(MainActivity.this,"data added successfully",Toast.LENGTH_LONG).show();
+                activity();
             }
         });
 
 
     }
-
+    public void activity()
+    {
+        Intent intent=new Intent(this,Main2Activity.class);
+        startActivity(intent);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
